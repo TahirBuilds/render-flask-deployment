@@ -1,0 +1,821 @@
+/* HOME PAGE */
+
+
+/* =================================
+   Global Styles & Basic Layout
+   ================================= */
+   * {
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+  }
+  
+  html, body {
+    height: 100%;
+    font-family: 'Poppins', sans-serif;
+    background: #f7f9fc; /* Light background for the body */
+    color: #333;
+  }
+  
+  body {
+    display: flex;
+  }
+  
+  /* =================================
+     Sidebar Styles
+     ================================= */
+  .sidebar {
+    width: 250px;
+    background: #aeddf0; /* Sidebar background color */
+    padding: 1rem;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    position: fixed; /* Fixed position */
+    height: 100%;
+    transition: transform 0.3s ease;
+    z-index: 1000; /* Ensure sidebar is above main content */
+    box-shadow: 2px 0 5px rgba(0,0,0,0.1); /* Subtle shadow */
+  }
+  
+  .sidebar-hidden {
+    transform: translateX(-100%); /* Slide out */
+  }
+  
+  .sidebar-logo img {
+    max-width: 120px;
+    margin-bottom: 1rem;
+    border-radius: 10px; /* Slightly rounded logo */
+  }
+  
+  .sidebar-nav {
+    width: 100%;
+  }
+  
+  /* Search input inside sidebar */
+  .search-form {
+    width: 100%;
+    margin-bottom: 1rem;
+  }
+  
+  .search-input {
+    width: 100%;
+    padding: 0.6rem 0.8rem;
+    border: 1px solid #8cb5cd; /* Border matching secondary button hover */
+    border-radius: 5px;
+    font-size: 0.95rem;
+    outline: none;
+    background-color: #f0f8ff; /* Lighter background */
+  }
+  
+  .search-input:focus {
+    border-color: #5ab3e0; /* Primary button color on focus */
+    background-color: #fff;
+  }
+  
+  /* Sidebar History separator */
+  .sidebar-nav div {
+      margin-top: 1rem;
+      font-weight: 500;
+      color: #2c3e50; /* Darker text for heading */
+  }
+  .sidebar-nav hr {
+      border: 0;
+      height: 1px;
+      background-color: #8cb5cd; /* Separator color */
+      margin-bottom: 1rem;
+  }
+  
+  /* =================================
+     Sidebar Toggle Button
+     ================================= */
+  .sidebar-toggle {
+    position: fixed;
+    left: 15px; /* Adjusted position */
+    top: 15px;  /* Adjusted position */
+    z-index: 1100; /* Above sidebar */
+    background: #f0f8ff; /* Light background */
+    border: 1px solid #aeddf0; /* Border matching sidebar */
+    color: #2c3e50; /* Darker color */
+    font-size: 1.5rem; /* Slightly smaller */
+    cursor: pointer;
+    padding: 5px 8px;
+    border-radius: 5px;
+    transition: transform 0.3s ease, background-color 0.2s ease;
+    display: block !important; /* Ensure it's always block */
+    box-shadow: 0 1px 3px rgba(0,0,0,0.1);
+  }
+  
+  .sidebar-toggle.active {
+    /* Keep rotation or use different icon/style */
+     transform: rotate(180deg);
+  }
+  
+  .sidebar-toggle:hover {
+    background-color: #d6eef9; /* Hover effect */
+    color: #000;
+  }
+  
+  /* =================================
+     Main Content Area
+     ================================= */
+  .main-content {
+    flex: 1; /* Take remaining space */
+    display: flex;
+    flex-direction: column;
+    padding: 2rem;
+    background-color: #ecfafc; /* Main content background */
+    margin-left: 250px; /* Space for the sidebar */
+    transition: margin-left 0.3s ease;
+    min-height: 100vh; /* Ensure it fills viewport height */
+  }
+  
+  .main-content-expanded {
+    margin-left: 0; /* No margin when sidebar is hidden */
+  }
+  
+  /* Header within Main Content */
+  .hero-header {
+    text-align: center;
+    margin-bottom: 2rem;
+  }
+  
+  .app-title {
+    font-size: 2.5rem;
+    font-weight: 600;
+    color: #2c3e50; /* Dark blue/grey */
+  }
+  
+  .app-tagline {
+    font-size: 1.2rem;
+    color: #555;
+    margin-top: 0.5rem;
+  }
+  
+  /* Horizontal Layout for Input and Description */
+  .horizontal-layout {
+      display: flex;
+      flex-wrap: wrap; /* Allow wrapping on smaller screens */
+      gap: 2rem; /* Space between input side and description side */
+      align-items: flex-start; /* Align items to the top */
+      justify-content: center; /* Center items if they don't fill space */
+  }
+  
+  /* Left Side (Input Area) */
+  .input-side {
+      flex: 1 1 500px; /* Flex grow, shrink, basis */
+      display: flex;
+      flex-direction: column;
+      align-items: center; /* Center items horizontally */
+      min-width: 300px; /* Minimum width before wrapping */
+  }
+  
+  /* Right Side (What is ByHeart) */
+  .what-is-byheart {
+      flex: 1 1 400px; /* Flex grow, shrink, basis */
+      background-color: #ffffff; /* White background card */
+      padding: 1.5rem 2rem;
+      border-radius: 15px;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+      min-width: 300px; /* Minimum width */
+  }
+  
+  .what-is-byheart .welcome-logo {
+      display: block;
+      max-width: 100px; /* Adjust size */
+      margin: 0 auto 1rem auto;
+      border-radius: 10px;
+  }
+  
+  .what-is-byheart h2 {
+      text-align: center;
+      color: #2c3e50;
+      margin-bottom: 0.5rem; /* Reduced margin */
+  }
+  
+  .what-is-byheart p {
+      line-height: 1.6;
+      color: #444;
+      font-size: 0.95rem;
+  }
+  
+  /* =================================
+     Forms and Inputs
+     ================================= */
+  
+  .byheart-form {
+    position: relative; /* Needed for floating label/counter */
+    width: 100%;
+    max-width: 600px; /* Consistent max width */
+    margin: 0 auto; /* Center form elements */
+  }
+  
+  /* Main Text Area */
+  .byheart-textarea {
+    width: 100%; /* Take full width of its container (.byheart-form) */
+    max-width: 600px; /* Max width constraint */
+    min-height: 140px; /* Minimum height */
+    resize: vertical; /* Allow vertical resize only */
+    padding: 1.2rem;
+    border: 2px solid #dce4ec; /* Slightly softer border */
+    border-radius: 15px; /* Softer corners */
+    font-size: 1rem; /* Standard font size */
+    background: #fdfdff; /* Very light background */
+    transition: all 0.2s ease;
+    font-family: 'Poppins', sans-serif;
+    box-shadow: inset 0 1px 2px rgba(0,0,0,0.03);
+    margin-bottom: 0.5rem; /* Space below textarea before buttons */
+  }
+  
+  .byheart-textarea:focus {
+    border-color: #5ab3e0; /* Primary color border on focus */
+    outline: none;
+    box-shadow: 0 0 0 3px rgba(90, 179, 224, 0.15); /* Subtle glow */
+    background: #fff;
+  }
+  
+  .byheart-textarea:hover {
+    border-color: #c0d3e5; /* Hover border */
+  }
+  
+  /* Extracted Text Area Specific Style (Optional) */
+  #extracted-text-area {
+    background-color: #f0f4f8; /* Slightly different background */
+    border-color: #c5d1de;
+    font-size: 0.95rem; /* Slightly smaller font */
+  }
+  
+  #extracted-text-area:focus {
+     border-color: #78a1bf;
+     box-shadow: 0 0 0 3px rgba(120, 161, 191, 0.15);
+     background-color: #f8fafd;
+  }
+  
+  /* Section containing extracted text and its buttons */
+  .extracted-text-section {
+      width: 100%;
+      max-width: 600px; /* Match text area width */
+      margin: 1rem auto 0 auto; /* Center and add space above */
+      padding: 1rem;
+      background-color: #e7f5fc; /* Background slightly different from main */
+      border-radius: 10px;
+      border: 1px solid #d0e7f3;
+  }
+  
+  /* Hide the actual file input element */
+  #image-upload-input {
+      display: none;
+  }
+  
+  /* =================================
+     Buttons
+     ================================= */
+  
+  /* Container for buttons below the main text area */
+  .text-area-buttons {
+    width: 100%;
+    max-width: 600px; /* Match text area width */
+    margin: 0.5rem auto 0 auto; /* Center and manage space */
+    display: flex;
+    justify-content: flex-start; /* Align buttons to the start */
+    flex-wrap: wrap; /* Allow wrapping */
+    gap: 10px; /* Space between buttons */
+  }
+  
+  /* Unified Button Style */
+  .text-area-button {
+    padding: 8px 15px; /* Slightly adjusted padding */
+    border: none;
+    border-radius: 20px; /* Rounded corners */
+    font-size: 0.9rem;
+    cursor: pointer;
+    transition: all 0.2s ease;
+    display: inline-flex; /* Use inline-flex for alignment */
+    align-items: center; /* Vertically center icon and text */
+    gap: 6px; /* Space between icon and text */
+    font-weight: 500; /* Medium weight */
+    text-decoration: none; /* Remove underline from <a> tags styled as buttons */
+  }
+  
+  /* Primary Button (ByHeart) */
+  .primary-btn {
+    background: #5ab3e0; /* Primary color */
+    color: #ffffff; /* White text */
+  }
+  
+  .primary-btn:hover {
+    background: #4a9bc9; /* Darker shade on hover */
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+  }
+  
+  /* Secondary Buttons (Record, Results, Upload, Paste, Clear) */
+  .secondary-btn {
+    background: #aeddf0; /* Lighter blue */
+    color: #2c3e50; /* Dark text for contrast */
+    border: 1px solid #9ccde6; /* Subtle border */
+  }
+  
+  .secondary-btn:hover {
+    background: #9ccde6; /* Darker shade on hover */
+    border-color: #8cb5cd;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.08);
+  }
+  
+  /* Button Icons */
+  .button-icon {
+    font-size: 1.1rem; /* Adjusted icon size */
+    /* Color is inherited from the button text color */
+  }
+  
+  /* Old .byheart-button style (kept for potential backward compatibility or other uses) */
+  .byheart-button {
+    padding: 0.75rem 1.5rem;
+    border: none;
+    border-radius: 30px;
+    font-size: 1rem;
+    cursor: pointer;
+    background: linear-gradient(135deg, #74b9ff, #81ecec);
+    color: #fff;
+    transition: background 0.3s ease;
+    font-weight: 600;
+    display: inline-block; /* Ensure it behaves like other buttons if used */
+    margin: 5px; /* Add some margin if used alongside others */
+  }
+  .byheart-button:hover {
+    background: linear-gradient(135deg, #0984e3, #00cec9);
+  }
+  
+  
+  /* =================================
+     Floating Video Feed
+     ================================= */
+  .video-floating-container {
+    position: fixed;
+    bottom: 1.5rem; /* Adjusted position */
+    right: 1.5rem;  /* Adjusted position */
+    z-index: 999;   /* Below sidebar toggle */
+  }
+  
+  .video-floating {
+    width: 280px; /* Slightly smaller */
+    height: auto;
+    border: 3px solid #ccc;
+    border-radius: 10px; /* Less pronounced rounding */
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.2);
+    opacity: 0.85; /* Slightly less transparent */
+    transition: opacity 0.3s ease, box-shadow 0.3s ease;
+  }
+  
+  .video-floating:hover {
+    opacity: 1;
+    box-shadow: 0 6px 15px rgba(0, 0, 0, 0.25);
+  }
+  
+  /* =================================
+     Responsiveness
+     ================================= */
+  @media (max-width: 768px) {
+  
+    .main-content {
+        margin-left: 0; /* No margin needed when sidebar is overlay or hidden */
+        padding: 1rem; /* Reduce padding on smaller screens */
+    }
+  
+    /* Sidebar takes full width when shown on mobile, or adjust as needed */
+    .sidebar:not(.sidebar-hidden) {
+        width: 80%; /* Example: take 80% width */
+        transform: translateX(0);
+        box-shadow: 3px 0 6px rgba(0,0,0,0.15);
+    }
+  
+    .sidebar-toggle {
+        left: 10px;
+        top: 10px;
+        font-size: 1.4rem;
+    }
+  
+    .app-title {
+        font-size: 2rem;
+    }
+  
+    .app-tagline {
+        font-size: 1rem;
+    }
+  
+    .horizontal-layout {
+        flex-direction: column; /* Stack input and description */
+        gap: 1.5rem;
+    }
+  
+    .input-side, .what-is-byheart {
+        flex-basis: auto; /* Reset flex basis */
+        width: 100%; /* Take full width when stacked */
+        max-width: none; /* Remove max-width constraints */
+    }
+  
+    .byheart-textarea, .text-area-buttons, #extracted-text-area, .extracted-text-section {
+        max-width: none; /* Allow textareas/buttons to use available width */
+    }
+  
+    .text-area-buttons {
+        justify-content: center; /* Center buttons on mobile */
+    }
+  
+    .video-floating-container {
+        bottom: 1rem;
+        right: 1rem;
+    }
+  
+    .video-floating {
+        width: 150px; /* Smaller video feed on mobile */
+    }
+  }
+  
+  /* =================================
+     Helper Classes (Optional)
+     ================================= */
+  .hidden {
+      display: none;
+  }
+  
+  /* Results page */
+
+
+/* Results Page Specific Styles */
+
+/* Container for the results content */
+.results-section {
+  max-width: 800px;
+  margin: 0 auto;
+  text-align: center;
+}
+
+.results-box {
+  background: #f7f9fc;
+  border: 2px solid #dfe6e9;
+  border-radius: 10px;
+  padding: 2rem;
+  margin-top: 2rem;
+}
+
+.results-title {
+  font-size: 1.5rem;
+  font-weight: 600;
+  margin-bottom: 1rem;
+  color: #2c3e50;
+}
+
+.results-subtext {
+  font-size: 1rem;
+  margin: 1rem 0 0.5rem;
+  color: #555;
+}
+
+.sidebar-logo img {
+  max-width: 120px;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+.text-area-buttons {
+  margin-top: 1.5rem;
+  display: flex;
+  justify-content: center;
+  gap: 12px;
+  flex-wrap: wrap;
+}
+
+.text-area-button {
+  padding: 10px 20px;
+  border: none;
+  border-radius: 20px;
+  font-size: 0.95rem;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  text-decoration: none;
+  transition: background 0.3s ease;
+}
+
+#statusContainer {
+  width: 100%;
+  max-width: 600px;
+  margin: 0.5rem auto;
+  text-align: center;
+  min-height: 2rem; /* Reserve space even when empty */
+}
+
+.primary-btn {
+  background: #5ab3e0;
+  color: black;
+  font-weight: 500;
+}
+
+.primary-btn:hover {
+  background: #81c6e8;
+}
+
+.secondary-btn {
+  background: #aeddf0;
+  color: #333;
+}
+
+.secondary-btn:hover {
+  background: #8cb5cd;
+}
+
+
+.history-label {
+  font-size: 1rem;
+  color: #2c3e50;
+  font-weight: 500;
+  padding: 0.5rem 0;
+  text-align: center;
+  background: #dff9fb;
+  border-radius: 6px;
+  margin-top: 0.5rem;
+}
+
+  
+  /* Recited answer */
+  .recited-answer {
+    background: #ffffff;
+    border: 2px dashed #74b9ff;
+    padding: 1rem;
+    margin: 1rem auto;
+    font-style: italic;
+    font-size: 1.1rem;
+    color: #2c3e50;
+    white-space: pre-line; /* preserve line breaks */
+    max-width: 600px;
+  }
+  
+  
+  /* Accuracy Score */
+  .accuracy-score {
+    display: inline-block;
+    background: #dff9fb;
+    border-radius: 6px;
+    padding: 0.5rem 1rem;
+    font-size: 1.2rem;
+    font-weight: 600;
+    color: #0984e3;
+    margin: 1rem 0;
+  }
+  
+  /* Feedback Text */
+  .positive-feedback {
+    color: #2ecc71; /* Green */
+    font-weight: 500;
+  }
+  .neutral-feedback {
+    color: #f1c40f; /* Yellow */
+    font-weight: 500;
+  }
+  .negative-feedback {
+    color: #e74c3c; /* Red */
+    font-weight: 500;
+  }
+  
+  /* Example link styling in the sidebar */
+  .nav-link {
+    display: block;
+    padding: 0.6rem 1rem;
+    border-radius: 6px;
+    margin-top: 0.5rem;
+    text-decoration: none;
+    color: #2c3e50;
+    font-weight: 500;
+    text-align: center;
+    background: #dff9fb;
+    transition: background 0.3s ease;
+  }
+  .nav-link:hover {
+    background: #c7ecee;
+  }
+  
+  /* Example for big green box or highlight if you want */
+  .highlight-box {
+    background: #dfffd6;
+    border: 2px solid #55efc4;
+    padding: 1rem;
+    border-radius: 6px;
+    margin: 1rem auto;
+    color: #2c3e50;
+  }  
+
+  .what-is-byheart {
+    text-align: left;
+    font-size: 1rem;
+    max-width: 600px;
+    border: 1px;
+    padding: 1rem;
+    background: #d1eefd;
+    border-radius: 20px;
+    border-color: #9fbfca;
+    border-style: solid;
+    border-width: 2px;
+    font-family:'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
+    
+   
+}
+
+
+/* Layout for side-by-side welcome and input section */
+.content-row {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 2rem;
+  margin-top: 2rem;
+}
+
+.welcome-logo {
+  width: 60px;
+  height: auto;
+  margin-bottom: 0.75rem;
+}
+
+.what-is-byheart {
+  flex: 1;
+  text-align: left;
+  font-size: 1rem;
+  background: #d1eefd;
+  border-radius: 20px;
+  border: 2px solid #9fbfca;
+  padding: 1.5rem;
+  font-family: 'Poppins', sans-serif;
+}
+
+.aligned-input {
+  flex: 1;
+}
+
+/* Sidebar logo size fix */
+.sidebar-logo img {
+  max-width: 90px;
+  height: auto;
+  margin-bottom: 1rem;
+}
+
+/* Layout section with input on left and welcome on right */
+/* Layout: Input and Welcome side by side */
+.horizontal-layout {
+  display: flex;
+  justify-content: space-between;
+  align-items: stretch;
+  gap: 2rem;
+  margin-top: 2rem;
+  background: #cce7f2;
+  padding: 2.5rem; /* Increased padding */
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  max-width: 95%; /* Changed from 100% to control max width */
+  width: 65vw; /* New: Uses viewport width units */
+  min-width: 800px; /* New: Minimum width */
+  margin-left: auto;
+  margin-right: auto;
+  position: relative;
+}
+
+.horizontal-layout::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 2rem; /* Starts after top padding */
+  bottom: 2rem; /* Ends before bottom padding */
+  width: 3px;
+  background-color: #92bdd2;
+  transform: translateX(-50%);
+  border-radius: 2px;
+}
+
+
+.input-side,
+.what-is-byheart {
+  flex: 1;
+  text-align: left;
+  font-size: 1rem;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 2px solid #d3e3ec;
+  font-family: 'Poppins', sans-serif;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+  margin: 0; /* important to prevent offset */
+}
+
+
+
+@media (max-width: 768px) {
+  .horizontal-layout {
+    flex-direction: column;
+    padding: 1rem;
+  }
+
+  .input-side,
+  .what-is-byheart {
+    max-width: 100%;
+  }
+}
+
+
+/* Welcome box on the right */
+.what-is-byheart {
+  flex: 1;
+  background: #ffffff;
+  border-radius: 20px;
+  padding: 1.5rem;
+  border: 2px solid #d3e3ec;
+  font-size: 0.95rem;
+  font-family: 'Poppins', sans-serif;
+  text-align: left;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.03);
+}
+
+/* Logo inside welcome box */
+.welcome-logo {
+  width: 140px;
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+
+/* Resize sidebar logo */
+.sidebar-logo img {
+  max-width: 80px;
+  height: auto;
+  display: block;
+  margin-bottom: 1rem;
+}
+
+/* WRAPPER: reduce total width + center layout */
+.content-wrapper {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  gap: 40px;
+  background: #fff;
+  padding: 2rem;
+  border-radius: 20px;
+  box-shadow: 0 0 10px rgba(0,0,0,0.05);
+  max-width: 90%;
+  margin: 0 auto;
+  position: relative;
+}
+
+/* VERTICAL LINE BETWEEN DIVS */
+.content-wrapper::before {
+  content: '';
+  position: absolute;
+  left: 50%;
+  top: 0;
+  bottom: 0;
+  width: 2px;
+  background-color: #43a1be;
+  transform: translateX(-50%);
+}
+
+/* MAKE BOTH SIDES EQUAL WIDTH */
+.input-section,
+.welcome-section {
+  flex: 1;
+  padding: 0 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+/* TEXTAREA STYLING WRAPPER */
+.text-area-container {
+  width: 100%;
+  display: flex;
+  justify-content: center;
+  background: #ecfafc;
+  padding: 1rem;
+  border-radius: 20px;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.05);
+  margin-bottom: 1rem;
+}
+
+/* TEXTAREA ITSELF */
+.byheart-textarea {
+  width: 100%;
+  height: 200px;
+  border-radius: 20px;
+  padding: 20px;
+  border: 2px solid #dae2e7;
+  box-shadow: inset 1px 1px 5px rgba(200, 249, 255, 0.918);
+  font-size: 16px;
+}
+
+/* WELCOME BOX LOGO INSIDE */
+.welcome-logo {
+  width: 140px !important;
+  height: auto;
+}
+

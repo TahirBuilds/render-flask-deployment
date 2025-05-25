@@ -1,0 +1,49 @@
+blinker @ file:///home/conda/feedstock_root/build_artifacts/blinker_1731096409132/work
+Brotli @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_d7pp3g74_g/croot/brotli-split_1736182638718/work
+certifi @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_cesa53jxug/croot/certifi_1745939220134/work/certifi
+cffi @ file:///Users/runner/miniforge3/conda-bld/cffi_1725560582645/work
+charset-normalizer @ file:///croot/charset-normalizer_1721748349566/work
+click @ file:///home/conda/feedstock_root/build_artifacts/click_1734858813237/work
+dlib @ file:///Users/runner/miniforge3/conda-bld/dlib_1670031322954/work
+easyocr @ file:///Users/runner/miniforge3/conda-bld/easyocr_1732118926149/work
+filelock @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_90zocybn3d/croot/filelock_1744281394121/work
+Flask @ file:///home/conda/feedstock_root/build_artifacts/flask_1741793020411/work
+gmpy2 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_a9jzez1qcu/croot/gmpy2_1738085473561/work
+gunicorn==23.0.0
+idna @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2b_jn555_n/croot/idna_1714398852258/work
+imagecodecs @ file:///Users/runner/miniforge3/conda-bld/imagecodecs_1674483200250/work
+imageio @ file:///home/conda/feedstock_root/build_artifacts/imageio_1738273805233/work
+importlib_metadata @ file:///home/conda/feedstock_root/build_artifacts/importlib-metadata_1737420181517/work
+itsdangerous @ file:///home/conda/feedstock_root/build_artifacts/itsdangerous_1733308265247/work
+Jinja2 @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_f4xtf61_ib/croot/jinja2_1741715270435/work
+lazy_loader @ file:///home/conda/feedstock_root/build_artifacts/lazy-loader_1733636780672/work
+MarkupSafe @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_76vhch455b/croot/markupsafe_1738584048225/work
+mkl-fft @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_af8wl3mjfu/croot/mkl_fft_1695058185839/work
+mkl-random @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_0fq2s894lk/croot/mkl_random_1695059822529/work
+mkl-service==2.4.0
+mpmath @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_8fyoqwupl2/croot/mpmath_1690848275746/work
+networkx @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_ba1do7fwxc/croot/networkx_1737043398715/work
+numpy @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_b7iptlxgej/croot/numpy_and_numpy_base_1708638622773/work/dist/numpy-1.26.4-cp310-cp310-macosx_10_9_x86_64.whl#sha256=3a091282d65449198047c750ee795786a0222d5b42b704d32838b504a7523d8c
+opencv-python==4.7.0
+packaging @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_packaging_1745345660/work
+Pillow @ file:///Users/runner/miniforge3/conda-bld/pillow_1675487347214/work
+pyclipper @ file:///Users/runner/miniforge3/conda-bld/pyclipper_1695670566425/work
+pycparser @ file:///home/conda/feedstock_root/build_artifacts/bld/rattler-build_pycparser_1733195786/work
+PySocks @ file:///Users/builder/ci_310/pysocks_1642536366386/work
+python-bidi @ file:///Users/runner/miniforge3/conda-bld/python-bidi_1739924541771/work
+PyWavelets==1.8.0
+PyYAML @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_34t43scp15/croot/pyyaml_1728658999838/work
+requests @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_2eh84h3yiv/croot/requests_1730999127987/work
+scikit-image @ file:///Users/runner/miniforge3/conda-bld/scikit-image_1734955910707/work/dist/scikit_image-0.25.0-cp310-cp310-macosx_10_13_x86_64.whl#sha256=c8ee53fa05bf8e1702697f6a6391949c6e19d5e191d80bf30c8937144817192c
+scipy @ file:///Users/runner/miniforge3/conda-bld/scipy-split_1739790744051/work/dist/scipy-1.15.2-cp310-cp310-macosx_10_13_x86_64.whl#sha256=f6d40aea21a34e9d9a143f479557cad14bca2f4dbd51ceb15ddc40e976676acb
+shapely @ file:///Users/runner/miniforge3/conda-bld/shapely_1743678369862/work
+sounddevice @ file:///home/conda/feedstock_root/build_artifacts/python-sounddevice_1723402953991/work
+SpeechRecognition==3.14.2
+sympy @ file:///private/var/folders/c_/qfmhj66j0tn016nkx_th4hxm0000gp/T/abs_3ej0z2jk7t/croot/sympy_1738108502551/work
+tifffile @ file:///home/conda/feedstock_root/build_artifacts/tifffile_1692120125985/work
+torch==2.2.2
+torchvision==0.17.2
+typing_extensions @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_6dn2s8ln8g/croot/typing_extensions_1734714858107/work
+urllib3 @ file:///private/var/folders/sy/f16zz6x50xz3113nwtb9bvq00000gp/T/abs_8bqv7goib8/croot/urllib3_1737133637259/work
+Werkzeug @ file:///home/conda/feedstock_root/build_artifacts/werkzeug_1733160440960/work
+zipp @ file:///home/conda/feedstock_root/build_artifacts/zipp_1732827521216/work

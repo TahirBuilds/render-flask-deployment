@@ -1,0 +1,57 @@
+# Byte-compiled / optimized / DLL files
+__pycache__/
+*.py[cod]
+*$py.class
+
+# Virtual Environment
+venv/
+ENV/
+env/
+.env
+
+# Flask cache and debug files
+instance/
+.pytest_cache/
+.coverage
+
+# Virtual environment
+# Standard venv folders
+venv/
+.venv/
+# Conda environment folder (often outside the project, but can be inside)
+# If your conda env is inside, uncomment the relevant line
+# env/
+# .conda-env/ 
+
+# Database file
+database.db
+
+# Python compiled files
+*.pyc
+__pycache__/
+
+# Uploaded images
+# Ignore the contents of the static/uploads/ folder but keep the folder itself tracked
+# if you want the empty folder to exist in the repo structure.
+# To ignore the folder AND its contents:
+# static/uploads/
+# To ignore contents but keep the folder:
+static/uploads/*
+!static/uploads/.gitkeep # Optional: add an empty .gitkeep file inside uploads/
+
+# Audio recordings
+mic_recording.wav
+
+# Operating System files
+.DS_Store # macOS
+Thumbs.db # Windows
+
+# Other common ignores for Python/Flask projects
+dist/
+build/
+*.egg-info/
+.env # For environment variables
+.vscode/ # Visual Studio Code settings (optional)
+
+# Dlib face-landmark model (too big for GitHub)
+shape_predictor_68_face_landmarks.dat

@@ -1,0 +1,164 @@
+<!DOCTYPE html>
+
+<html lang="en">
+
+  <head>
+
+    <meta charset="UTF-8" />
+
+    <title>ByHeart – Results</title>
+    
+    <link rel="stylesheet"
+      href="{{ url_for('static', filename='css/style.css') }}"
+    />
+    <script src="{{ url_for('static', filename='js/script.js') }}"></script>
+    <link rel="preconnect" href="https://fonts.googleapis.com"
+    />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap"
+    />
+    <link rel="icon" type="image/x-icon"
+    href="{{ url_for('static', filename='images/favicon_io/android-chrome-512x512.png') }}"
+    />
+
+  </head>
+
+  <script>
+    // Sidebar Toggle Logic
+    function toggleSidebar() {
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.querySelector(".main-content");
+      const toggleBtn = document.querySelector(".sidebar-toggle");
+
+      sidebar.classList.toggle("sidebar-hidden");
+      mainContent.classList.toggle("main-content-expanded");
+      toggleBtn.classList.toggle("active");
+
+      const isHidden = sidebar.classList.contains("sidebar-hidden");
+      localStorage.setItem("sidebarHidden", isHidden);
+    }
+
+    // Load sidebar state on page load
+    window.addEventListener("DOMContentLoaded", () => {
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.querySelector(".main-content");
+      const isHidden = localStorage.getItem("sidebarHidden") === "true";
+
+      if (window.innerWidth <= 768 || isHidden) {
+        sidebar.classList.add("sidebar-hidden");
+        mainContent.classList.add("main-content-expanded");
+      } else {
+        sidebar.classList.remove("sidebar-hidden");
+        mainContent.classList.remove("main-content-expanded");
+      }
+    });
+
+    // Handle resize
+    window.addEventListener("resize", () => {
+      const sidebar = document.getElementById("sidebar");
+      const mainContent = document.querySelector(".main-content");
+      const isHidden = localStorage.getItem("sidebarHidden") === "true";
+
+      if (window.innerWidth > 768) {
+        if (!isHidden) {
+          sidebar.classList.remove("sidebar-hidden");
+          mainContent.classList.remove("main-content-expanded");
+        }
+      } else {
+        sidebar.classList.add("sidebar-hidden");
+        mainContent.classList.add("main-content-expanded");
+      }
+    });
+    
+    // Highlighting Logic
+
+    const userSpeech = "{{ post['speech_text'] if post else '' }}";
+      analyzeAndHighlight(userSpeech);
+  </script>
+
+  <body>
+    <!-- Sidebar Toggle Button -->
+    <button class="sidebar-toggle" onclick="toggleSidebar()">☰</button>
+
+    <!-- Sidebar (styled like home page) -->
+    <aside class="sidebar" id="sidebar">
+      <div class="sidebar-logo">
+        <img src="{{ url_for('static', filename='images/ByHeartLOGO.jpeg') }}"
+        alt="ByHeart Logo"/>      
+      </div>
+      <nav class="sidebar-nav">
+        <form action="#" class="search-form">
+          <input
+            type="text"
+            class="search-input"
+            placeholder="Search previous answers"
+            aria-label="Search"
+          />
+        </form>
+        <div>History</div>
+        <hr />
+      </nav>
+
+      <!-- Move this link OUTSIDE nav and into a bottom container -->
+    </aside>
+
+    <!-- Main Content -->
+    <main class="main-content">
+      <header class="hero-header">
+        <h1 class="app-title">ByHeart</h1>
+        <p class="app-tagline">Learn it. Love it. ByHeart it.</p>
+      </header>
+
+      <section class="results-section">
+        <div class="results-box">
+          <h2 class="results-title">
+            This was your {{ post['id'] if post else 'User' }}<sup>th</sup>
+            answer for Today!
+          </h2>
+
+          <p class="results-subtext">You recited:</p>
+          <div id="recitedAnswer" class="recited-answer">
+            {{ post['speech_text'] if post and post['speech_text'] else "No
+            recitation found." }}
+          </div>
+
+          <p class="results-subtext">
+            Here’s how accurately you remembered it:
+          </p>
+          <div class="accuracy-score">
+            {{ accuracy|round(2) if accuracy else "No Accuracy Data" }}%
+          </div>
+
+          {% if accuracy %} {% if accuracy > 80 %}
+          <p class="positive-feedback">Outstanding! Keep up the great work!</p>
+          {% elif accuracy > 50 %}
+          <p class="neutral-feedback">
+            Good job, there's room for improvement. Practice makes perfect!
+          </p>
+          {% else %}
+          <p class="negative-feedback">
+            Don't worry! Mistakes are part of learning. Try again and you'll get
+            better.
+          </p>
+          {% endif %} {% endif %}
+
+          <p class="results-subtext">
+            Want to give another a try? Pick something new and let’s keep going!
+          </p>
+
+          <!-- Button section -->
+          <div class="text-area-buttons">
+            <a href="{{ url_for('index') }}" class="text-area-button primary-btn">
+              <i class="fas fa-rotate-left button-icon"></i> Try Another
+          </a>          
+            <a href="results.html" class="text-area-button secondary-btn">
+              <i class="fas fa-book-open button-icon"></i> View History
+            </a>
+          </div>
+        </div>
+      </section>
+    </main>
+
+  </body>
+</html>

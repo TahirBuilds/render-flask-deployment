@@ -1,0 +1,221 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <title>ByHeart – Learning Companion.</title>
+    <link rel="stylesheet" href="{{ url_for('static', filename='css/style.css') }}" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css">
+    <link rel="icon" type="image/x-icon" href="{{ url_for('static', filename='images/favicon_io/android-chrome-512x512.png') }}">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600&display=swap">
+    <style>
+        /* Add this style to hide the default file input */
+        #image-upload-input {
+            display: none;
+        }
+        /* Optional: Add some margin between buttons if needed */
+        .text-area-buttons .text-area-button,
+        .text-area-buttons form {
+             margin-right: 5px; /* Adjust spacing as needed */
+             margin-bottom: 5px; /* Add space below buttons if they wrap */
+        }
+        .extracted-text-section {
+             margin-top: 15px; /* Space above extracted text */
+        }
+        .extracted-text-section textarea {
+            margin-bottom: 5px; /* Space below extracted textarea */
+        }
+    </style>
+</head>
+
+<body>
+
+    <button class="sidebar-toggle" onclick="toggleSidebar()">
+        ☰
+    </button>
+
+    <aside class="sidebar" id="sidebar">
+        <div class="sidebar-logo">
+            <img src="{{ url_for('static', filename='images/ByHeartLOGO.jpeg') }}" alt="ByHeart Logo" />
+        </div>
+        <nav class="sidebar-nav">
+            <form action="#" class="search-form">
+                <input type="text" class="search-input" placeholder="Search previous answers" aria-label="Search" />
+            </form>
+            <div>History</div><hr>
+            </nav>
+    </aside>
+
+    <main class="main-content">
+        <header class="hero-header">
+            <h1 class="app-title">ByHeart</h1>
+            <p class="app-tagline">Learn it. Love it. ByHeart it.</p>
+        </header>
+        <section class="horizontal-layout">
+            <div class="input-side">
+                <form action="{{ url_for('submit_text') }}" method="POST" class="byheart-form">
+                    <textarea
+                      name="textbody"
+                      id="textbody"
+                      class="byheart-textarea"
+                      placeholder="Type or paste the text you want to memorize..."
+                      required
+                    ></textarea>
+                    <div class="text-area-buttons">
+                      <button type="submit" class="text-area-button primary-btn">
+                        <i class="button-icon fas fa-brain"></i>
+                        ByHeart
+                      </button>
+                    </div>
+                  </form> <div class="text-area-buttons">
+                      <form action="{{ url_for('start_recording') }}" method="POST" style="display:inline;">
+                          <button type="submit" class="text-area-button secondary-btn" title="Record Audio">
+                              <i class="fas fa-microphone button-icon"></i>
+                          </button>
+                      </form>
+
+                      <a href="{{ url_for('results') }}" class="text-area-button secondary-btn" style="text-decoration: none" title="View Results">
+                          <i class="button-icon fas fa-chart-bar"></i>
+                          </a>
+
+                      <form id="ocr-form" action="{{ url_for('upload_image') }}" method="POST" enctype="multipart/form-data" style="display:inline;">
+                          <input type="file" name="image" id="image-upload-input" accept="image/*" required>
+                          <button type="button" id="upload-trigger-button" class="text-area-button secondary-btn" title="Upload Image">
+                              <i class="fas fa-file-upload button-icon"></i> </button>
+                          </form>
+                      </div> {% if extracted_text %}
+                  <section class="extracted-text-section">
+                      <textarea id="extracted-text-area" class="byheart-textarea" rows="5" readonly>{{ extracted_text }}</textarea>
+                      <button type="button" id="paste-button" class="text-area-button secondary-btn" title="Paste Extracted Text">
+                          <i class="fas fa-paste button-icon"></i> Paste
+                      </button>
+                      <form action="{{ url_for('clear_text') }}" method="POST" style="display:inline;">
+                           <button type="submit" class="text-area-button secondary-btn" title="Clear Extracted Text">
+                                <i class="fas fa-times button-icon"></i> Clear
+                            </button>
+                      </form>
+                  </section>
+                  {% endif %}
+
+            </div> <div class="what-is-byheart">
+                <img src="{{ url_for('static', filename='images/ByHeartLOGO.jpeg') }}" alt="Logo" class="welcome-logo" />
+                <h2>Welcome to ByHeart!</h2><br>
+                <p>ByHeart is a smart learning companion that listens, evaluates, and provides real-time feedback on your recitations.</p><br>
+                <p>The app tracks eye movements and listens to speech, ensuring honest and accurate learning.</p>
+            </div>
+        </section> <div class="video-floating-container">
+            <img
+              src="{{ url_for('video_feed') }}"
+              alt="Eye Tracking Feed"
+              class="video-floating"
+            />
+          </div>
+
+    </main>
+
+    <script>
+        // Sidebar toggle function (keep your existing code)
+        function toggleSidebar() {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const toggleBtn = document.querySelector('.sidebar-toggle');
+
+            sidebar.classList.toggle('sidebar-hidden');
+            mainContent.classList.toggle('main-content-expanded');
+            toggleBtn.classList.toggle('active'); // Add/remove active class
+
+            // Save state
+            const isHidden = sidebar.classList.contains('sidebar-hidden');
+            localStorage.setItem('sidebarHidden', isHidden);
+        }
+
+        // Sidebar initialization (keep your existing code)
+        window.addEventListener('DOMContentLoaded', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            const isHidden = localStorage.getItem('sidebarHidden') === 'true';
+
+            // Initial state setup
+            if (window.innerWidth <= 768) {
+                if (sidebar) sidebar.classList.add('sidebar-hidden');
+                if (mainContent) mainContent.classList.add('main-content-expanded');
+            } else {
+                if (isHidden) {
+                    if (sidebar) sidebar.classList.add('sidebar-hidden');
+                    if (mainContent) mainContent.classList.add('main-content-expanded');
+                } else {
+                    if (sidebar) sidebar.classList.remove('sidebar-hidden');
+                    if (mainContent) mainContent.classList.remove('main-content-expanded');
+                }
+            }
+
+            // --- NEW JAVASCRIPT FOR FILE UPLOAD & PASTE ---
+
+            const uploadTriggerButton = document.getElementById('upload-trigger-button');
+            const fileInput = document.getElementById('image-upload-input');
+            const ocrForm = document.getElementById('ocr-form');
+            const pasteButton = document.getElementById('paste-button');
+            const extractedTextArea = document.getElementById('extracted-text-area');
+            const mainTextArea = document.getElementById('textbody');
+
+            // 1. Make the upload icon button trigger the hidden file input
+            if (uploadTriggerButton && fileInput) {
+                uploadTriggerButton.addEventListener('click', () => {
+                    fileInput.click(); // Programmatically click the hidden file input
+                });
+            }
+
+            // 2. Auto-submit the form when a file is selected
+            if (fileInput && ocrForm) {
+                fileInput.addEventListener('change', () => {
+                    // Check if a file was actually selected
+                    if (fileInput.files.length > 0) {
+                        ocrForm.submit(); // Submit the form containing the file input
+                    }
+                });
+            }
+
+            // 3. Paste functionality
+            if (pasteButton && extractedTextArea && mainTextArea) {
+                pasteButton.addEventListener('click', () => {
+                    const textToPaste = extractedTextArea.value;
+                    // Append to existing text or replace? Let's append with a newline.
+                    // Change to mainTextArea.value = textToPaste; to replace.
+                    if (mainTextArea.value.length > 0) {
+                        mainTextArea.value += '\n' + textToPaste;
+                    } else {
+                        mainTextArea.value = textToPaste;
+                    }
+                    // Optional: Scroll to the bottom of the textarea
+                    mainTextArea.scrollTop = mainTextArea.scrollHeight;
+                    // Optional: Give focus to the main textarea
+                    mainTextArea.focus();
+                });
+            }
+
+            // --- END NEW JAVASCRIPT ---
+        });
+
+        // Sidebar resize handler (keep your existing code)
+        window.addEventListener('resize', () => {
+            const sidebar = document.getElementById('sidebar');
+            const mainContent = document.querySelector('.main-content');
+            if (!sidebar || !mainContent) return; // Add checks
+
+            if (window.innerWidth > 768) {
+                const isHidden = localStorage.getItem('sidebarHidden') === 'true';
+                if (!isHidden) {
+                    sidebar.classList.remove('sidebar-hidden');
+                    mainContent.classList.remove('main-content-expanded');
+                }
+            } else {
+                sidebar.classList.add('sidebar-hidden');
+                mainContent.classList.add('main-content-expanded');
+            }
+        });
+
+    </script>
+
+</body>
+</html>
